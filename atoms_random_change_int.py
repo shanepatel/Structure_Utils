@@ -66,8 +66,8 @@ def convert_species_at_int(atoms, num,spec1,spec2,tol=0.125,ax=0): #turn spec1 i
 def del_species_at_int(atoms, num,spec,tol=0.125,ax=0):
     sat = sorted(atoms.at.keys())
     old_ats = atoms.at[spec]
-    candidate_ats_1 = [i for i in old_ats if (i[0] < tol) or (abs(1.0 - i[0]) < tol)]
-    candidate_ats_2 = [i for i in old_ats if (abs(0.5 - i[0]) < tol) or (abs(i[0] -0.5) < tol)] 
+    candidate_ats_1 = [i for i in old_ats if (i[ax] < tol) or (abs(1.0 - i[ax]) < tol)]
+    candidate_ats_2 = [i for i in old_ats if (abs(0.5 - i[ax]) < tol) or (abs(i[ax] -0.5) < tol)] 
     base_ats = [i for i in old_ats if i not in candidate_ats_1 and i not in candidate_ats_2]
     L1 = len(candidate_ats_1)
     L2 = len(candidate_ats_2)

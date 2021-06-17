@@ -24,24 +24,24 @@ def poscar_write(atoms,filename):
     ntypes=len(atom_types)
     if filename=="screen":
         str_line=""
-        for itype in range(ntypes):
-            str_line+=" %s" % atom_types[itype]
-        print str_line
-        print "1.0"
-        print "%24.15E%24.15E%24.15E" % (atoms.cellvec[0][0],atoms.cellvec[0][1],atoms.cellvec[0][2])
-        print "%24.15E%24.15E%24.15E" % (atoms.cellvec[1][0],atoms.cellvec[1][1],atoms.cellvec[1][2])
-        print "%24.15E%24.15E%24.15E" % (atoms.cellvec[2][0],atoms.cellvec[2][1],atoms.cellvec[2][2])
-        print str_line
-        str_line=""
-        for itype in range(ntypes):
-            str_line+=" %d" % atom_nn[itype]
-        print str_line
-        print atoms.coordinates
-        for iat in range(atoms.nat):
-            x=float(rat[iat][0])
-            y=float(rat[iat][1])
-            z=float(rat[iat][2])
-            print "%24.15E%24.15E%24.15E" % (x,y,z)
+        #for itype in range(ntypes):
+        #    str_line+=" %s" % atom_types[itype]
+        #print str_line
+        #print "1.0"
+        #print "%24.15E%24.15E%24.15E" % (atoms.cellvec[0][0],atoms.cellvec[0][1],atoms.cellvec[0][2])
+        #print "%24.15E%24.15E%24.15E" % (atoms.cellvec[1][0],atoms.cellvec[1][1],atoms.cellvec[1][2])
+        #print "%24.15E%24.15E%24.15E" % (atoms.cellvec[2][0],atoms.cellvec[2][1],atoms.cellvec[2][2])
+        #print str_line
+        #str_line=""
+        #for itype in range(ntypes):
+        #    str_line+=" %d" % atom_nn[itype]
+        #print str_line
+        #print atoms.coordinates
+        #for iat in range(atoms.nat):
+        #    x=float(rat[iat][0])
+        #    y=float(rat[iat][1])
+        #    z=float(rat[iat][2])
+        #    print "%24.15E%24.15E%24.15E" % (x,y,z)
     else:
         str_line=""
         for itype in range(ntypes):
@@ -104,7 +104,7 @@ def xdatcar_read(coordinates):
                 atoms.nat+=int(i)
                 ncol+=1
             if ncol!=ntypes:
-                print "ERROR: in lines 6 and 7, number of columns differ: %3d%3d",ntypes,ncol
+                print("ERROR: in lines 6 and 7, number of columns differ: %3d%3d",ntypes,ncol)
             for itype in range(ntypes):
                 for iat in range(atom_nn[itype]):
                     atoms.sat.append(atom_types[itype])
@@ -123,7 +123,7 @@ def xdatcar_read(coordinates):
                     atoms.rat[-1].append(yred)
                     atoms.rat[-1].append(zred)
                 else:
-                    print "ERROR: unknown coordinates"
+                    print("ERROR: unknown coordinates")
                 atoms.coordinates=coordinates
             if (iline-7)%(atoms.nat+1)==0:
                 atoms_all.append(Atoms())
@@ -172,7 +172,7 @@ def poscar_read(filename):
                 atoms.nat+=int(i)
                 ncol+=1
             if ncol!=ntypes:
-                print "ERROR: in lines 6 and 7, number of columns differ: %3d%3d",ntypes,ncol
+                print("ERROR: in lines 6 and 7, number of columns differ: %3d%3d",ntypes,ncol)
             for itype in range(ntypes):
                 for iat in range(atom_nn[itype]):
                     atoms.sat.append(atom_types[itype])
@@ -195,7 +195,7 @@ def poscar_read(filename):
                 atoms.rat[-1].append(yred)
                 atoms.rat[-1].append(zred)
             else:
-                print "ERROR: unknown coordinates"
+                print("ERROR: unknown coordinates")
             if not line.strip(): break
     f.close()
     return atoms

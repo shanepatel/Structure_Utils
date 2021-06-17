@@ -24,8 +24,8 @@ def lammps_pos_write(atoms,filename,chg_dict={},atom_style='charges'):
         for j in atoms.at[sat[i]]:
             if atom_style=='charges':
                 f.write(str(ct)+"     "+str(i+1) + "       "+str(chg_dict[sat[i]]) + "   %9.5E   %9.5E   %9.5E\n" %(j[0],j[1],j[2]))
-#            else:
-#
+            #else:
+
             ct += 1
     f.close()
 def lammps_pos_write_nonortho(atoms,filename,chg_dict={},atom_style='metal'):
@@ -45,20 +45,19 @@ def lammps_pos_write_nonortho(atoms,filename,chg_dict={},atom_style='metal'):
     f.write(str(len(sat)) + " atom types\n\n")
     f.write("0  %10.8E  xlo xhi\n" %(atoms.cellvec[0][0]))
     f.write("0  %10.8E  ylo yhi\n" %(atoms.cellvec[1][1]))
-    f.write("0  %10.8E  zlo zhi\n\n" %(atoms.cellvec[2][2]))
-    f.write("%10.8E  %10.8E  %10.8E xy xz yz \n" %(atoms.cellvec[1][0]) %(atoms.cellvec[2][0]) %(atoms.cellvec[1][2]))
+    f.write("0  %10.8E  zlo zhi\n" %(atoms.cellvec[2][2]))
+    f.write("%10.8F  %10.8F  %10.8F xy xz yz \n\n" %(xy,xz,yz))
     f.write("Masses\n\n")
     for i in xrange(len(sat)):
         f.write(str(i+1)+" "+str(masses[sat[i]])+"\n")
-    f.write("\nAtoms\n")
+    f.write("\nAtoms\n\n")
     ct = 1
     for i in xrange(len(sat)):
         for j in atoms.at[sat[i]]:
             if atom_style=='charges':
-                f.write(str(ct)+"     "+str(i+1) + "       "+str(chg_dict[sat[i]]) + "   %9.5E   %9.5E   %9.5E\n" %(j[0],j[1],j[2]))
+                f.write(str(ct)+"     "+str(i+1) + "       "+str(chg_dict[sat[i]]) + "   %9.5e   %9.5e   %9.5e\n" %(j[0],j[1],j[2]))
             elif atom_style=='metal':
-                f.write(str(ct) + " " + str(ct) + " " + str(i+1) + " " + "0.0" + "   %9.5E   %9.5E   %9.5E\n" %(j[0],j[1],j[2]))
-#
+                f.write(str(ct) + " " + str(ct) + " " + str(i+1) + " 0.0 " + "   %9.5F  %9.5F   %9.5F" %(j[0],j[1],j[2])+ " 0 0 0" + "# " + sat[i] + "\n")
             ct += 1
     f.close()
 def lammps_tschopp_read(filename):
